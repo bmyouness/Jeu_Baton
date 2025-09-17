@@ -1,0 +1,33 @@
+CREATE TABLE Compte(
+   id INT IDENTITY,
+   mail VARCHAR(50),
+   password VARCHAR(50),
+   partie_perdu INT,
+   partie_gagné INT,
+   PRIMARY KEY(id),
+   UNIQUE(mail),
+   UNIQUE(password)
+);
+
+CREATE TABLE Partie(
+   id INT IDENTITY,
+   gagnant INT,
+   perdant INT,
+   nbr_batonnets INT,
+   tour_jouer INT NOT NULL,
+   code_partie VARCHAR(50),
+   id_compte_2 INT NOT NULL,
+   id_compte_1 INT NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(id_compte_2) REFERENCES Compte(id),
+   FOREIGN KEY(id_compte_1) REFERENCES Compte(id)
+);
+
+CREATE TABLE Tour(
+   id INT IDENTITY,
+   nbr_batonnet_retirer INT NOT NULL,
+   nbr_batonner_restants INT NOT NULL,
+   id_partie INT NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(id_partie) REFERENCES Partie(id)
+);
